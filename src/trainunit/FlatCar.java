@@ -2,7 +2,7 @@ package trainunit;
 
 public class FlatCar extends TrainUnit {
 
-	FlatCar()
+	public FlatCar()
 	{
 		SetDescription("Flat Car");
 	}

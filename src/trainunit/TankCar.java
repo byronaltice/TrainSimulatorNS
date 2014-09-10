@@ -1,7 +1,7 @@
 package trainunit;
 
 public class TankCar extends TrainUnit {
-	TankCar()
+	public TankCar()
 	{
 		SetDescription("Tank Car");
 	}
