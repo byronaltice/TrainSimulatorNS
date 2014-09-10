@@ -3,7 +3,7 @@ package domain;
 
 public class Customer {
 
-	private Train train; //Each customer has 1 train
+	private Train customerTrain; //Each customer has 1 train
 	private String customerName; //
 	public String GetName()
 	{
@@ -15,6 +15,7 @@ public class Customer {
 	}
 	public Train GetTrain()
 	{
-		return train;
+		return customerTrain;
 	}
+	
 }

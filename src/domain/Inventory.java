@@ -8,46 +8,50 @@ public class Inventory {
 	private ArrayList<FlatCar> flatCars;
 	private ArrayList<Locomotive> locomotives;
 	private ArrayList<TankCar> tankCars;
-	
+	private static Inventory inventory;
+	public static Inventory getInventory()
+	{
+		return inventory;
+	}
 	Inventory(int numberOfLocomotives, int numberOfBoxCars, int numberOfFlatCars, int NumberOfTankCars)
 	{
 		while(numberOfLocomotives > 0)
 		{
-			locomotives.add(new Locomotive());
+			inventory.locomotives.add(new Locomotive());
 			numberOfLocomotives--;
 		}
 		while(numberOfBoxCars > 0)
 		{
-			boxCars.add(new BoxCar());
+			inventory.boxCars.add(new BoxCar());
 			numberOfBoxCars--;
 		}
 		while(numberOfFlatCars > 0)
 		{
-			flatCars.add(new FlatCar());
+			inventory.flatCars.add(new FlatCar());
 			numberOfFlatCars--;
 		}
 		while(NumberOfTankCars > 0)
 		{
-			tankCars.add(new TankCar());
+			inventory.tankCars.add(new TankCar());
 			NumberOfTankCars--;
 		}
 	}
 	
 	public boolean isLocomotiveExists()
 	{
-		return locomotives.size() > 0; //TODO add method to Inventory
+		return inventory.locomotives.size() > 0; //TODO add method to Inventory
 	}
 	public boolean isCarExists()
 	{
-		return boxCars.contains(new BoxCar()) || flatCars.contains(new FlatCar()) || tankCars.contains(new TankCar());
+		return inventory.boxCars.contains(new BoxCar()) || flatCars.contains(new FlatCar()) || tankCars.contains(new TankCar());
 	}
-	public boolean GetLocomotive(int number)
+	public boolean getLocomotive(int number)
 	{
-		if(locomotives.size() >= number)
+		if(inventory.locomotives.size() >= number)
 		{
 			while(number > 0)
 			{
-				locomotives.remove(0);
+				inventory.locomotives.remove(0);
 				number--;
 			}
 			return true;
@@ -55,17 +59,17 @@ public class Inventory {
 		else
 			return false;
 	}
-	public TrainUnit GetFreeCar() //Get a free car of any type from the inventory if it exists TODO make user initialize a specific type?
+	/*public TrainUnit GetFreeCar() //Get a free car of any type from the inventory if it exists TODO make user initialize a specific type?
 	{
 		return new TrainUnit();
-	}
-	public boolean GetBoxCar(int number)
+	}*/
+	public boolean getBoxCar(int number)
 	{
-		if(boxCars.size() >= number)
+		if(inventory.boxCars.size() >= number)
 		{
 			while(number > 0)
 			{
-				boxCars.remove(0);
+				inventory.boxCars.remove(0);
 				number--;
 			}
 			return true;
@@ -73,13 +77,13 @@ public class Inventory {
 		else
 			return false;
 	}
-	public boolean GetFlatCar(int number)
+	public boolean getFlatCar(int number)
 	{
-		if(flatCars.size() >= number)
+		if(inventory.flatCars.size() >= number)
 		{
 			while(number > 0)
 			{
-				flatCars.remove(0);
+				inventory.flatCars.remove(0);
 				number--;
 			}
 			return true;
@@ -87,13 +91,13 @@ public class Inventory {
 		else
 			return false;
 	}
-	public boolean GetTankCar(int number)
+	public boolean getTankCar(int number)
 	{
-		if(tankCars.size() >= number)
+		if(inventory.tankCars.size() >= number)
 		{
 			while(number > 0)
 			{
-				tankCars.remove(0);
+				inventory.tankCars.remove(0);
 				number--;
 			}
 			return true;
