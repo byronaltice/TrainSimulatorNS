@@ -59,6 +59,20 @@ public class Inventory {
 		else
 			return false;
 	}
+	public boolean putLocomotive(int number)
+	{
+		if(inventory.locomotives.size() >= number)
+		{
+			while(number > 0)
+			{
+				inventory.locomotives.add(new Locomotive());
+				number--;
+			}
+			return true;
+		}
+		else
+			return false;
+	}
 	/*public TrainUnit GetFreeCar() //Get a free car of any type from the inventory if it exists TODO make user initialize a specific type?
 	{
 		return new TrainUnit();
