@@ -1,7 +1,4 @@
 package domain;
-import java.util.ArrayList;
-
-import trainunit.*;
 public class Inventory {
 
 	private int boxCars = 0;
@@ -60,6 +57,30 @@ public class Inventory {
 		while(number > 0)
 		{
 			inventory.locomotives++;
+			number--;
+		}
+	}
+	public void putFlatCar(int number)
+	{
+		while(number > 0)
+		{
+			inventory.flatCars++;
+			number--;
+		}
+	}
+	public void putBoxCar(int number)
+	{
+		while(number > 0)
+		{
+			inventory.boxCars++;
+			number--;
+		}
+	}
+	public void putTankCar(int number)
+	{
+		while(number > 0)
+		{
+			inventory.tankCars++;
 			number--;
 		}
 	}

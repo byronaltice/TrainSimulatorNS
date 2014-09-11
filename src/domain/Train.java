@@ -1,6 +1,8 @@
 package domain;
 import java.util.ArrayList;
-import trainunit.*;
+
+import domain.trainunit.*;;
+
 public class Train {
 
 	private ArrayList <TrainUnit> trainSegments; //first object in ArrayList is the front of the train
@@ -9,6 +11,10 @@ public class Train {
 	private void AddSegment(TrainUnit segment)
 	{
 		trainSegments.add(segment);
+	}
+	private void AddLocomotive(TrainUnit segment) // Add to front of train.
+	{
+		trainSegments.add(0, segment);
 	}
 	public static class TrainFactory
 	{	
@@ -52,36 +58,54 @@ public class Train {
 			{
 				newTrain.AddSegment(new TankCar());
 			}
-			correctNumberOfLocomotives(newTrain);
+			if(!correctNumberOfLocomotives(newTrain))
+				return null;
 			
 			return newTrain;
 		}
-		private static void correctNumberOfLocomotives(Train train) // Correct the number of locomotives that should be with this train
+		private static boolean correctNumberOfLocomotives(Train train) // Get the correct the number of locomotives that should be with this train
 		{
-			int numberOfLocomotivesNeeded = (train.trainSegments.size() + train.maxCarsPerLocomotive)/train.maxCarsPerLocomotive;
 			int numberOfLocomotivesPresent = 0;
 			for(TrainUnit t : train.trainSegments)
 			{
 				if(t.GetDescription() == "Locomotive")
 					numberOfLocomotivesPresent++;
 			}
-			if(numberOfLocomotivesNeeded > numberOfLocomotivesPresent)
+			int numberOfLocomotivesNeeded = (train.trainSegments.size() + train.maxCarsPerLocomotive - numberOfLocomotivesPresent)/train.maxCarsPerLocomotive;
+			
+			
+			if(!inventory.getLocomotive(numberOfLocomotivesNeeded))
 			{
-				if(!inventory.getLocomotive(numberOfLocomotivesNeeded - numberOfLocomotivesPresent))
-				{
-					System.out.println("Could not create train, not enough Locomotives");
-				}
+				System.out.println("Could not create train, not enough Locomotives");
+				return false;
 			}
-			else
+			for(int i = 0; i < numberOfLocomotivesNeeded; i++)
 			{
-				inventory.putLocomotive(numberOfLocomotivesPresent - numberOfLocomotivesNeeded);
+				train.AddLocomotive(new Locomotive());
 			}
+			return true;
 		}
 	}
 
 	public void adjustNumberOfCars(int flatCars, int boxCars, int tankCars)
 	{
+		// Add locomotives currently being used back to inventory
+		int numberOfLocomotivesPresent = 0;
+		for(TrainUnit t : trainSegments)
+		{
+			if(t.GetDescription() == "Locomotive")
+				numberOfLocomotivesPresent++;
+		}
+		TrainFactory.inventory.putLocomotive(numberOfLocomotivesPresent);
+		
+		// Add cars currently being used back to inventory
+		TrainFactory.inventory.putFlatCar(flatCars);
+		TrainFactory.inventory.putBoxCar(boxCars);
+		TrainFactory.inventory.putTankCar(tankCars);
+		
+		// Recreate the train
 		trainSegments.clear();
+		
 		for(int i = 0; i < flatCars; i++)
 		{
 			AddSegment(new FlatCar());
