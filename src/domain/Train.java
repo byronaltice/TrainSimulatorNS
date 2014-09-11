@@ -19,9 +19,9 @@ public class Train {
 	{
 		return new ArrayList<TrainUnit>(trainSegments); //make a copy so no one outside can modify the member variable
 	}
-	private void AddLocomotive(TrainUnit segment) // Add to front of train.
+	private void AddLocomotive(TrainUnit segment) 
 	{
-		trainSegments.add(0, segment);
+		trainSegments.add(0, segment); // Add to front of train.
 	}
 	public static class TrainFactory
 	{	
@@ -47,7 +47,7 @@ public class Train {
 
 			Train newTrain = new Train();
 			newTrain.createCars(flatCars, boxCars, tankCars);
-			if(!correctNumberOfLocomotives(newTrain))
+			if(!correctNumberOfLocomotives(newTrain)) // Unable to get the right number of locomotives?
 				return null;
 			
 			return newTrain;
@@ -63,7 +63,7 @@ public class Train {
 			int numberOfLocomotivesNeeded = (train.trainSegments.size() + train.maxCarsPerLocomotive - numberOfLocomotivesPresent)/train.maxCarsPerLocomotive;
 			
 			
-			if(!inventory.getLocomotive(numberOfLocomotivesNeeded))
+			if(!inventory.getLocomotive(numberOfLocomotivesNeeded)) // attempt to reserve locomotives
 			{
 				System.out.println("Could not create train, not enough Locomotives");
 				return false;

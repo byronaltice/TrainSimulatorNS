@@ -5,7 +5,7 @@ public class Customer {
 
 	private Train customerTrain; //Each customer has 1 train
 	private String customerName;
-	private Customer() //Force to create with a name.
+	private Customer() //private ctor: Force to create with a name.
 	{
 		
 	}

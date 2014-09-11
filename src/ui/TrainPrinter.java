@@ -72,5 +72,12 @@ public class TrainPrinter {
 		System.out.println("Tank Cars: " + inv.getTankCars());
 		System.out.println("\n\n");
 	}
+	public void printInventoryErrorIfInvalid(Inventory inv)
+	{
+		//Will prent error message only if the inventory has been corrupted
+		//ie: The total set of cars and locomotives in your system/application should of course remain the same.
+		if(!inv.VerifyInventory())
+			System.out.println("ERROR: Something went wrong with the database. Contact someone immediately");
+	}
 	
 }
