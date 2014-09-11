@@ -29,7 +29,6 @@ public class Train {
 		//Considered using an intermediate class between inventory and Train like InventoryConnection in case the interface to the Inventory changes, 
 		//such as via a db, but since this is just a simple program, just have Train hold a static inventory 
 		private static Inventory inventory = Inventory.getInventory();
-		private static ArrayList<Train> allTrains = new ArrayList<Train>();
 		
 		public static Inventory getInventory()
 		{
@@ -51,7 +50,6 @@ public class Train {
 			if(!correctNumberOfLocomotives(newTrain))
 				return null;
 			
-			allTrains.add(newTrain);
 			return newTrain;
 		}
 		private static boolean correctNumberOfLocomotives(Train train) // Get the correct the number of locomotives that should be with this train
