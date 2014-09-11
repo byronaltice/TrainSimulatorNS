@@ -2,6 +2,8 @@ package domain.trainunit;
 //Unit/Segment of a train, like a car or locomotive
 public class TrainUnit {
 
+	private String description;
+	
 	TrainUnit()
 	{
 		
@@ -14,6 +16,5 @@ public class TrainUnit {
 	{
 		this.description = description;
 	}
-	private String description;
 	
 }

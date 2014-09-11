@@ -23,10 +23,6 @@ public class Customer {
 	}
 	public Train GetTrain()
 	{
-		if(customerTrain == null)
-		{
-			System.out.println("You need to create a train for this customer first");
-		}
 		return customerTrain;
 	}
 	public void CreateTrain(int flatCars, int boxCars, int tankCars)

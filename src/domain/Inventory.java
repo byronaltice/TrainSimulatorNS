@@ -1,50 +1,57 @@
 package domain;
-public class Inventory {
+public class Inventory{
 
 	private int boxCars = 0;
 	private int flatCars = 0;
 	private int locomotives = 0;
 	private int tankCars = 0;
 	private static Inventory inventory;
-	public static Inventory getInventory()
-	{
-		return inventory;
-	}
-	Inventory(int numberOfLocomotives, int numberOfBoxCars, int numberOfFlatCars, int NumberOfTankCars)
+	public static void populateTrainUnits(int numberOfLocomotives, int numberOfBoxCars, int numberOfFlatCars, int NumberOfTankCars)
 	{
 		while(numberOfLocomotives > 0)
 		{
-			inventory.locomotives++;
+			getInventory().locomotives++;
 			numberOfLocomotives--;
 		}
 		while(numberOfBoxCars > 0)
 		{
-			inventory.boxCars++;
+			getInventory().boxCars++;
 			numberOfBoxCars--;
 		}
 		while(numberOfFlatCars > 0)
 		{
-			inventory.flatCars++;
+			getInventory().flatCars++;
 			numberOfFlatCars--;
 		}
 		while(NumberOfTankCars > 0)
 		{
-			inventory.tankCars++;
+			getInventory().tankCars++;
 			NumberOfTankCars--;
 		}
 	}
-	
-	public boolean isLocomotiveExists()
+
+	public static Inventory getInventory()
 	{
-		return inventory.locomotives > 0; 
+		if(inventory == null) 
+		{
+			inventory = new Inventory();
+			inventory.InitializeInventory();
+		}
+		return inventory;
 	}
+	public void InitializeInventory()
+	{
+		//Would normally pull info from db or external source... but since we don't have one, just initialize manually
+		populateTrainUnits(3, 10, 15, 5);
+	}
+	
 	public boolean getLocomotive(int number)
 	{
-		if(inventory.locomotives >= number)
+		if(getInventory().locomotives >= number)
 		{
 			while(number > 0)
 			{
-				inventory.locomotives--;
+				getInventory().locomotives--;
 				number--;
 			}
 			return true;
@@ -52,11 +59,27 @@ public class Inventory {
 		else
 			return false;
 	}
+	public int getLocomotives()
+	{
+		return getInventory().locomotives;
+	}
+	public int getFlatCars()
+	{
+		return getInventory().flatCars;
+	}
+	public int getBoxCars()
+	{
+		return getInventory().boxCars;
+	}
+	public int getTankCars()
+	{
+		return getInventory().tankCars;
+	}
 	public void putLocomotive(int number)
 	{
 		while(number > 0)
 		{
-			inventory.locomotives++;
+			getInventory().locomotives++;
 			number--;
 		}
 	}
@@ -64,7 +87,7 @@ public class Inventory {
 	{
 		while(number > 0)
 		{
-			inventory.flatCars++;
+			getInventory().flatCars++;
 			number--;
 		}
 	}
@@ -72,7 +95,7 @@ public class Inventory {
 	{
 		while(number > 0)
 		{
-			inventory.boxCars++;
+			getInventory().boxCars++;
 			number--;
 		}
 	}
@@ -80,17 +103,17 @@ public class Inventory {
 	{
 		while(number > 0)
 		{
-			inventory.tankCars++;
+			getInventory().tankCars++;
 			number--;
 		}
 	}
 	public boolean getBoxCar(int number)
 	{
-		if(inventory.boxCars >= number)
+		if(getInventory().boxCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.boxCars--;
+				getInventory().boxCars--;
 				number--;
 			}
 			return true;
@@ -100,11 +123,11 @@ public class Inventory {
 	}
 	public boolean getFlatCar(int number)
 	{
-		if(inventory.flatCars >= number)
+		if(getInventory().flatCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.flatCars--;
+				getInventory().flatCars--;
 				number--;
 			}
 			return true;
@@ -114,11 +137,11 @@ public class Inventory {
 	}
 	public boolean getTankCar(int number)
 	{
-		if(inventory.tankCars >= number)
+		if(getInventory().tankCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.tankCars--;
+				getInventory().tankCars--;
 				number--;
 			}
 			return true;
