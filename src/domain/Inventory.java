@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import trainunit.*;
 public class Inventory {
 
-	private ArrayList<BoxCar> boxCars;
-	private ArrayList<FlatCar> flatCars;
-	private ArrayList<Locomotive> locomotives;
-	private ArrayList<TankCar> tankCars;
+	private int boxCars = 0;
+	private int flatCars = 0;
+	private int locomotives = 0;
+	private int tankCars = 0;
 	private static Inventory inventory;
 	public static Inventory getInventory()
 	{
@@ -17,41 +17,37 @@ public class Inventory {
 	{
 		while(numberOfLocomotives > 0)
 		{
-			inventory.locomotives.add(new Locomotive());
+			inventory.locomotives++;
 			numberOfLocomotives--;
 		}
 		while(numberOfBoxCars > 0)
 		{
-			inventory.boxCars.add(new BoxCar());
+			inventory.boxCars++;
 			numberOfBoxCars--;
 		}
 		while(numberOfFlatCars > 0)
 		{
-			inventory.flatCars.add(new FlatCar());
+			inventory.flatCars++;
 			numberOfFlatCars--;
 		}
 		while(NumberOfTankCars > 0)
 		{
-			inventory.tankCars.add(new TankCar());
+			inventory.tankCars++;
 			NumberOfTankCars--;
 		}
 	}
 	
 	public boolean isLocomotiveExists()
 	{
-		return inventory.locomotives.size() > 0; //TODO add method to Inventory
-	}
-	public boolean isCarExists()
-	{
-		return inventory.boxCars.contains(new BoxCar()) || flatCars.contains(new FlatCar()) || tankCars.contains(new TankCar());
+		return inventory.locomotives > 0; 
 	}
 	public boolean getLocomotive(int number)
 	{
-		if(inventory.locomotives.size() >= number)
+		if(inventory.locomotives >= number)
 		{
 			while(number > 0)
 			{
-				inventory.locomotives.remove(0);
+				inventory.locomotives--;
 				number--;
 			}
 			return true;
@@ -59,31 +55,21 @@ public class Inventory {
 		else
 			return false;
 	}
-	public boolean putLocomotive(int number)
+	public void putLocomotive(int number)
 	{
-		if(inventory.locomotives.size() >= number)
+		while(number > 0)
 		{
-			while(number > 0)
-			{
-				inventory.locomotives.add(new Locomotive());
-				number--;
-			}
-			return true;
+			inventory.locomotives++;
+			number--;
 		}
-		else
-			return false;
 	}
-	/*public TrainUnit GetFreeCar() //Get a free car of any type from the inventory if it exists TODO make user initialize a specific type?
-	{
-		return new TrainUnit();
-	}*/
 	public boolean getBoxCar(int number)
 	{
-		if(inventory.boxCars.size() >= number)
+		if(inventory.boxCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.boxCars.remove(0);
+				inventory.boxCars--;
 				number--;
 			}
 			return true;
@@ -93,11 +79,11 @@ public class Inventory {
 	}
 	public boolean getFlatCar(int number)
 	{
-		if(inventory.flatCars.size() >= number)
+		if(inventory.flatCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.flatCars.remove(0);
+				inventory.flatCars--;
 				number--;
 			}
 			return true;
@@ -107,11 +93,11 @@ public class Inventory {
 	}
 	public boolean getTankCar(int number)
 	{
-		if(inventory.tankCars.size() >= number)
+		if(inventory.tankCars >= number)
 		{
 			while(number > 0)
 			{
-				inventory.tankCars.remove(0);
+				inventory.tankCars--;
 				number--;
 			}
 			return true;

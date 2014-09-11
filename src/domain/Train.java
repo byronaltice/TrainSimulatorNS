@@ -5,21 +5,10 @@ public class Train {
 
 	private ArrayList <TrainUnit> trainSegments; //first object in ArrayList is the front of the train
 	private int maxCarsPerLocomotive = 15;
-	private Train()
-	{
-		if(!inventory.isCarExists() || !inventory.isLocomotiveExists())
-			return; //throw error? TODO
-		//Requirements say a train must have one locomotive and one car, so create them here.
-		trainSegments.add(inventory.GetLocomotive());
-		trainSegments.add(inventory.GetFreeCar());
-	}
+	
 	private void AddSegment(TrainUnit segment)
 	{
 		trainSegments.add(segment);
-	}
-	private ArrayList<TrainUnit> getTrain()
-	{
-		return
 	}
 	public static class TrainFactory
 	{	
@@ -64,21 +53,48 @@ public class Train {
 				newTrain.AddSegment(new TankCar());
 			}
 			correctNumberOfLocomotives(newTrain);
+			
 			return newTrain;
 		}
 		private static void correctNumberOfLocomotives(Train train) // Correct the number of locomotives that should be with this train
 		{
-			int numberOfLocomotivesNeeded = train.trainSegments.size()/train.maxCarsPerLocomotive;
+			int numberOfLocomotivesNeeded = (train.trainSegments.size() + train.maxCarsPerLocomotive)/train.maxCarsPerLocomotive;
 			int numberOfLocomotivesPresent = 0;
 			for(TrainUnit t : train.trainSegments)
 			{
 				if(t.GetDescription() == "Locomotive")
 					numberOfLocomotivesPresent++;
 			}
-			if(!inventory.getLocomotive(numberOfLocomotivesNeeded))
+			if(numberOfLocomotivesNeeded > numberOfLocomotivesPresent)
 			{
-				System.out.println("Could not create train, not enough Locomotives");
+				if(!inventory.getLocomotive(numberOfLocomotivesNeeded - numberOfLocomotivesPresent))
+				{
+					System.out.println("Could not create train, not enough Locomotives");
+				}
+			}
+			else
+			{
+				inventory.putLocomotive(numberOfLocomotivesPresent - numberOfLocomotivesNeeded);
 			}
 		}
+	}
+
+	public void adjustNumberOfCars(int flatCars, int boxCars, int tankCars)
+	{
+		trainSegments.clear();
+		for(int i = 0; i < flatCars; i++)
+		{
+			AddSegment(new FlatCar());
+		}
+		for(int i = 0; i < boxCars; i++)
+		{
+			AddSegment(new BoxCar());
+		}
+		for(int i = 0; i < tankCars; i++)
+		{
+			AddSegment(new TankCar());
+		}
+		TrainFactory.correctNumberOfLocomotives(this);
+		
 	}
 }
